@@ -1,3 +1,4 @@
+import 'package:e_commerce/features/auth/presentation/view/login_view.dart';
 import 'package:flutter/material.dart';
 
 class CustomBackButton extends StatelessWidget{
@@ -6,7 +7,9 @@ class CustomBackButton extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){},
+      onTap: (){
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginView()));
+      },
       child: Container(
         height: 50,
         width: 50,

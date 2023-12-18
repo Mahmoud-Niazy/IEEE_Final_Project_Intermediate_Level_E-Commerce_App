@@ -278,6 +278,7 @@ class RegisterView extends StatelessWidget {
                     SizedBox(
                       height: 60,
                     ),
+
                   ],
                 ),
               ),

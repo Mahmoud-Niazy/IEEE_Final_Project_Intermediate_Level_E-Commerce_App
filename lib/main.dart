@@ -1,4 +1,5 @@
 import 'package:e_commerce/core/api_services/api_services.dart';
+import 'package:e_commerce/features/auth/presentation/view/login_view.dart';
 import 'package:e_commerce/features/auth/presentation/view/register_view.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,8 @@ class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: RegisterView(),
+      debugShowCheckedModeBanner: false,
+      home: LoginView(),
     );
   }
 }
