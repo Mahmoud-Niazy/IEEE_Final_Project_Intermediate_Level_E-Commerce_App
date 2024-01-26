@@ -1,15 +1,9 @@
-import 'package:e_commerce/core/api_services/api_services.dart';
 import 'package:e_commerce/core/app_assets/app_assets.dart';
 import 'package:e_commerce/core/app_styles/app_styles.dart';
-import 'package:e_commerce/core/functions/show_snackbar.dart';
 import 'package:e_commerce/core/widgets/custom_button.dart';
-import 'package:e_commerce/features/auth/data/models/user_model.dart';
-import 'package:e_commerce/features/auth/data/repos/auth_repo_imp.dart';
-import 'package:e_commerce/features/auth/presentation/manager/user_register_provider/user_register_provider.dart';
 import 'package:e_commerce/features/auth/presentation/view/widgets/back_button.dart';
 import 'package:e_commerce/features/auth/presentation/view/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class RegisterView extends StatelessWidget {
   static TextEditingController fNameController = TextEditingController();
@@ -18,8 +12,7 @@ class RegisterView extends StatelessWidget {
   static TextEditingController emailController = TextEditingController();
   static TextEditingController phoneController = TextEditingController();
   static TextEditingController passwordController = TextEditingController();
-  static TextEditingController confirmPasswordController =
-      TextEditingController();
+  static TextEditingController confirmPasswordController = TextEditingController();
 
   static GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -39,10 +32,8 @@ class RegisterView extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             child: Form(
               key: formKey,
-              child: ChangeNotifierProvider(
-                create: (context) =>
-                    UserRegisterProvider(AuthRepoImp(ApiServices())),
-                child: Column(
+              child:
+              Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const CustomBackButton(),
@@ -243,44 +234,19 @@ class RegisterView extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    Consumer<UserRegisterProvider>(
-                        builder: (context, userRegisterProvider, child) {
-                      return CustomButton(
-                        onPressed: () async {
-                          if (formKey.currentState!.validate()) {
-                            try {
-                              UserModel user = UserModel(
-                                phone: phoneController.text,
-                                email: emailController.text,
-                                password: passwordController.text,
-                                fName: fNameController.text,
-                                lName: lNameController.text,
-                                userName: userNameController.text,
-                              );
-                              await userRegisterProvider.userRegister(user);
-                              showSnackBar(
-                                context: context,
-                                text: 'Success',
-                                color: Colors.blue,
-                              );
-                            } catch (error) {
-                              showSnackBar(
-                                context: context,
-                                text: 'Error',
-                                color: Colors.red,
-                              );
-                            }
-                          }
-                        },
-                        title: 'Register',
-                      );
-                    }),
+                    CustomButton(
+                      onPressed: () async {
+                        if (formKey.currentState!.validate()) {
+
+                        }
+                      },
+                      title: 'Register',
+                    ),
                     SizedBox(
                       height: 60,
                     ),
                   ],
                 ),
-              ),
             ),
           ),
         ),
