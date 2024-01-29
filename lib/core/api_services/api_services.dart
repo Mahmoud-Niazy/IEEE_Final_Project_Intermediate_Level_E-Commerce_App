@@ -13,13 +13,26 @@ class ApiServices {
 
   Future<Response> postData({
     required String path,
-    required Map<String,dynamic> data,
-  })async {
-    return await dio.post(
-      path,
-      data: data,
-    );
+    required Map<String,dynamic> data,})
+   async  {
+    try {
+  final response = await dio.post(
+  path,
+  data: {
+  'email': 'John@gmail.com',
+  'username': 'johnd',
+  'password': 'm38rmF\$',
+  'name': {'firstname': 'John', 'lastname': 'Doe'},
+
+  'phone': '15702367033',
+  },
+  );
+ return response; }
+  on DioException catch(error){
+      throw error;}
+  catch(e) {throw Exception (e.toString())
+      ;
   }
+  }
+   }
 
-
-}

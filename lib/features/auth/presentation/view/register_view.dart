@@ -1,9 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:e_commerce/core/app_assets/app_assets.dart';
 import 'package:e_commerce/core/app_styles/app_styles.dart';
 import 'package:e_commerce/core/widgets/custom_button.dart';
 import 'package:e_commerce/features/auth/presentation/view/widgets/back_button.dart';
 import 'package:e_commerce/features/auth/presentation/view/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../core/api_services/api_services.dart';
 
 class RegisterView extends StatelessWidget {
   static TextEditingController fNameController = TextEditingController();
@@ -20,6 +23,9 @@ class RegisterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ApiServices apiServices = ApiServices();
+    ApiServices.init();
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -234,14 +240,43 @@ class RegisterView extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
+
                     CustomButton(
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
+                          Map<String, dynamic> registrationData = {
+                            'email': RegisterView.emailController.text,
+                            'username': RegisterView.userNameController.text,
+                            'password': RegisterView.passwordController.text,
+                            'name': {
+                              'firstname': RegisterView.fNameController.text,
+                              'lastname': RegisterView.lNameController.text,
+                            },
+                            'phone': RegisterView.phoneController.text,
+                          };
 
+                          try {
+                            Response response = await apiServices.postData(
+                              path: '/users',
+                              data: registrationData,
+                            );
+
+                            print('Response Status Code: ${response.statusCode}');
+                            print('Response Body: ${response.data}');
+
+                            if (response.statusCode == 200) {
+                              print('User registration successful');
+                            } else {
+                              print('Registration failed');
+                            }
+                          } catch (error) {
+                            print('Error during registration: $error');
+                          }
                         }
                       },
                       title: 'Register',
-                    ),
+                    )
+,
                     SizedBox(
                       height: 60,
                     ),
