@@ -1,11 +1,10 @@
-import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 import 'package:e_commerce/core/app_assets/app_assets.dart';
 import 'package:e_commerce/core/app_styles/app_styles.dart';
 import 'package:e_commerce/core/widgets/custom_button.dart';
 import 'package:e_commerce/features/auth/presentation/view/widgets/back_button.dart';
 import 'package:e_commerce/features/auth/presentation/view/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../core/api_services/api_services.dart';
 
 class RegisterView extends StatelessWidget {
@@ -24,7 +23,6 @@ class RegisterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ApiServices apiServices = ApiServices();
-    ApiServices.init();
 
     return Scaffold(
       body: SafeArea(
@@ -256,13 +254,13 @@ class RegisterView extends StatelessWidget {
                           };
 
                           try {
-                            Response response = await apiServices.postData(
-                              path: '/users',
+                            http.Response response = await apiServices.postData(
+                              path: 'users',
                               data: registrationData,
                             );
 
                             print('Response Status Code: ${response.statusCode}');
-                            print('Response Body: ${response.data}');
+                            print('Response Body: ${response.body}');
 
                             if (response.statusCode == 200) {
                               print('User registration successful');
@@ -270,13 +268,13 @@ class RegisterView extends StatelessWidget {
                               print('Registration failed');
                             }
                           } catch (error) {
+                            // Handle other errors
                             print('Error during registration: $error');
                           }
                         }
                       },
-                      title: 'Register',
-                    )
-,
+                      title: 'Register'),
+
                     SizedBox(
                       height: 60,
                     ),

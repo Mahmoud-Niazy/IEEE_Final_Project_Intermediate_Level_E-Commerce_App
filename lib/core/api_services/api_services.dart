@@ -1,38 +1,33 @@
-import 'package:dio/dio.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class ApiServices {
-  static late Dio dio;
+  static late final Uri baseUrl;
 
-  static init() {
-    dio = Dio(
-      BaseOptions(
-        baseUrl: 'https://fakestoreapi.com/',
-      ),
-    );
+  static void init() {
+    baseUrl = Uri.parse('https://fakestoreapi.com/');
   }
 
-  Future<Response> postData({
+  Future<http.Response> postData({
     required String path,
-    required Map<String,dynamic> data,})
-   async  {
+    required Map<String, dynamic> data,
+  }) async {
     try {
-  final response = await dio.post(
-  path,
-  data: {
-  'email': 'John@gmail.com',
-  'username': 'johnd',
-  'password': 'm38rmF\$',
-  'name': {'firstname': 'John', 'lastname': 'Doe'},
-
-  'phone': '15702367033',
-  },
-  );
- return response; }
-  on DioException catch(error){
-      throw error;}
-  catch(e) {throw Exception (e.toString())
-      ;
+      final response = await http.post(
+        baseUrl.replace(path: baseUrl.path + path),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'email': 'John@gmail.com',
+          'username': 'johnd',
+          'password': 'm38rmF\$',
+          'name': {'firstname': 'John', 'lastname': 'Doe'},
+          'phone': '15702367033',
+        }),
+      );
+      return response;
+    } catch (error) {
+      throw error;
+    }
   }
-  }
-   }
+}
 
