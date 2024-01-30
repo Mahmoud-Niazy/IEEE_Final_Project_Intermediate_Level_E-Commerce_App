@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/app_styles/app_styles.dart';
 
+//ignore: must_be_immutable
 class CustomTextFormField extends StatefulWidget {
   final String title;
   bool isPassword;

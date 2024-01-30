@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
-class CustomBackButton extends StatelessWidget{
-  const CustomBackButton({super.key});
+class CustomBackButton extends StatelessWidget {
+  final void Function()? onPressed;
+
+  const CustomBackButton({
+    super.key,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){},
+      onTap: onPressed,
       child: Container(
         height: 50,
         width: 50,

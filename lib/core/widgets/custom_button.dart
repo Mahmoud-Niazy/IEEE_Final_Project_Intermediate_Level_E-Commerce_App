@@ -4,6 +4,7 @@ import '../app_styles/app_styles.dart';
 
 class CustomButton extends StatelessWidget {
   final String title;
+  final bool isButtonWhite ;
 
   final void Function()? onPressed;
 
@@ -11,6 +12,7 @@ class CustomButton extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.title,
+    this.isButtonWhite = false,
   });
 
   @override
@@ -21,14 +23,18 @@ class CustomButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 15),
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Colors.blue,
+          color: isButtonWhite ?  Colors.white : Colors.blue ,
           borderRadius: BorderRadius.circular(25),
+          border: isButtonWhite ? Border.all(
+            color: Colors.black,
+            width: 1,
+          ) : null,
         ),
         child: Center(
           child: Text(
             title,
             style:
-                AppStyles.style18.copyWith(color: Colors.white, fontSize: 16),
+                AppStyles.style18.copyWith(color: isButtonWhite ? Colors.black : Colors.white, fontSize: 16),
           ),
         ),
       ),
