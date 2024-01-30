@@ -1,17 +1,18 @@
+import 'package:e_commerce/core/functions/navigation.dart';
 import 'package:flutter/material.dart';
 
 class CustomBackButton extends StatelessWidget {
-  final void Function()? onPressed;
 
   const CustomBackButton({
     super.key,
-    required this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
+      onTap: (){
+        navigatePop(context: context);
+      },
       child: Container(
         height: 50,
         width: 50,

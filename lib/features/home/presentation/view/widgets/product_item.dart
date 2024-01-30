@@ -1,3 +1,5 @@
+import 'package:e_commerce/core/functions/navigation.dart';
+import 'package:e_commerce/features/home/presentation/view/product_details_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/app_styles/app_styles.dart';
@@ -15,49 +17,59 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.black26,
+    return GestureDetector(
+      onTap: () {
+        navigate(
+          context: context,
+          screen: ProductDetailsView(
+            productId: product.id,
+          ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.black26,
+          ),
+          borderRadius: BorderRadius.circular(20),
         ),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: SizedBox(
-        child: Column(
-          children: [
-            Image(
-              height: screenSize.height * .15,
-              image: NetworkImage(
-                product.image,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: SizedBox(
+          child: Column(
+            children: [
+              Image(
+                height: screenSize.height * .15,
+                image: NetworkImage(
+                  product.image,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-             Text(
-              product.title,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: AppStyles.style15Black,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomIconButton(
-                  onPressed: () {},
-                  icon: Icons.favorite,
-                ),
-                CustomIconButton(
-                  onPressed: () {},
-                  icon: Icons.shopping_cart_outlined,
-                ),
-              ],
-            ),
-          ],
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                product.title,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: AppStyles.style15Black,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomIconButton(
+                    onPressed: () {},
+                    icon: Icons.favorite,
+                  ),
+                  CustomIconButton(
+                    onPressed: () {},
+                    icon: Icons.shopping_cart_outlined,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

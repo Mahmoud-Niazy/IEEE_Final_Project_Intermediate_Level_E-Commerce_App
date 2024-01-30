@@ -30,7 +30,7 @@ class HomeView extends StatelessWidget {
                     children: [
                       Text(
                         'Hello , Welcome',
-                        style: AppStyles.style18,
+                        style: AppStyles.style18Grey,
                       ),
                       Text(
                         'Mahmoud',

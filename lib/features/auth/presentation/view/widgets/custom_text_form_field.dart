@@ -45,7 +45,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: widget.title,
-          hintStyle: AppStyles.style18.copyWith(
+          hintStyle: AppStyles.style18Grey.copyWith(
             fontSize: 16,
           ),
           suffixIcon: widget.isSuffixIconShown == true

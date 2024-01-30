@@ -55,7 +55,7 @@ class _LoginViewState extends State<LoginView> {
               ),
               const Text(
                 'Login to continue using the app',
-                style: AppStyles.style18,
+                style: AppStyles.style18Grey,
               ),
               const SizedBox(
                 height: 25,

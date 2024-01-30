@@ -1,9 +1,8 @@
 import 'package:e_commerce/core/app_assets/app_assets.dart';
 import 'package:e_commerce/core/app_styles/app_styles.dart';
-import 'package:e_commerce/core/functions/navigation.dart';
 import 'package:e_commerce/core/widgets/custom_button.dart';
 import 'package:e_commerce/core/widgets/custom_circular_progress_indicator.dart';
-import 'package:e_commerce/features/auth/presentation/view/widgets/back_button.dart';
+import 'package:e_commerce/core/widgets/back_button.dart';
 import 'package:e_commerce/features/auth/presentation/view/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,11 +40,7 @@ class RegisterView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   CustomBackButton(
-                    onPressed: (){
-                      navigatePop(context: context);
-                    },
-                  ),
+                   const CustomBackButton(),
                   Center(
                     child: Image.asset(
                       AppAssets.logo,
@@ -64,7 +59,7 @@ class RegisterView extends StatelessWidget {
                   ),
                   const Text(
                     'Enter Your Personal Information',
-                    style: AppStyles.style18,
+                    style: AppStyles.style18Grey,
                   ),
                   const SizedBox(
                     height: 25,

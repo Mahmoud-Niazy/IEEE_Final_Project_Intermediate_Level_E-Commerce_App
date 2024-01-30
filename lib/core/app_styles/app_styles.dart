@@ -6,10 +6,17 @@ class AppStyles {
     fontWeight: FontWeight.bold,
   );
 
-  static const TextStyle style18 = TextStyle(
+  static const TextStyle style18Grey = TextStyle(
     fontSize: 18,
     color: Colors.grey,
   );
+
+  static const TextStyle style18Black= TextStyle(
+    fontSize: 18,
+    color: Colors.black,
+    fontWeight: FontWeight.w500
+  );
+
 
   static const TextStyle style20 = TextStyle(
     fontSize: 20,
