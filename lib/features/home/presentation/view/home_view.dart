@@ -97,7 +97,7 @@ class HomeView extends StatelessWidget {
                   }
                   return GridView.count(
                     shrinkWrap: true,
-                    childAspectRatio: 1 / 1.6,
+                    childAspectRatio: 1 / 1.7,
                     crossAxisSpacing: screenSize.width * .03,
                     mainAxisSpacing: screenSize.height * .015,
                     physics: const NeverScrollableScrollPhysics(),
