@@ -34,4 +34,9 @@ class AppStyles {
       color: Colors.black,
       fontSize: 15,
   );
+  static const TextStyle styleBlue = TextStyle(
+    fontWeight: FontWeight.w500,
+    color: Colors.blue,
+    fontSize: 40,
+  );
 }

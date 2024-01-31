@@ -1,10 +1,16 @@
+import 'package:e_commerce/core/app_sqflite/sql.dart';
+import 'package:e_commerce/features/auth/presentation/view/login_view.dart';
 import 'package:e_commerce/features/layout/presentation/manager/layout_provider/layout_provider.dart';
 import 'package:e_commerce/features/layout/presentation/view/layout_view.dart';
+import 'package:e_commerce/features/splash/presentation/view/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'features/auth/presentation/manager/auth_provider/auth_provider.dart';
+import 'features/favourites/presentation/manager/favourite_provider.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Sql.instance.open();
   runApp(const MyApp());
 }
 
@@ -20,6 +26,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => LayoutProvider(),
+        ),
+        ChangeNotifierProvider<FavouriteProvider>(
+          create: (context) => FavouriteProvider(),
         ),
       ],
       child: MaterialApp(
