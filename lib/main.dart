@@ -1,3 +1,4 @@
+import 'package:e_commerce/features/cart/presentation/manager/cart_provider/cart_provider.dart';
 import 'package:e_commerce/features/layout/presentation/manager/layout_provider/layout_provider.dart';
 import 'package:e_commerce/features/layout/presentation/view/layout_view.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => LayoutProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CartProvider(),
         ),
       ],
       child: MaterialApp(

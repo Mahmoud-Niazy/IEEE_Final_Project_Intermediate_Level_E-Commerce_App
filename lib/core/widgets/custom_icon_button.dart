@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class CustomIconButton extends StatelessWidget{
   final IconData icon ;
   final void Function()? onPressed ;
+  final Color? color;
 
   const CustomIconButton({super.key,
     required this.onPressed,
     required this.icon,
+    this.color,
 });
   @override
   Widget build(BuildContext context) {
@@ -15,6 +17,7 @@ class CustomIconButton extends StatelessWidget{
         icon
       ),
       onPressed: onPressed,
+      color: color,
     );
   }
 }
