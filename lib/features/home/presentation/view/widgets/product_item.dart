@@ -1,6 +1,8 @@
 import 'package:e_commerce/core/functions/navigation.dart';
+import 'package:e_commerce/features/cart/presentation/manager/cart_provider/cart_provider.dart';
 import 'package:e_commerce/features/home/presentation/view/product_details_view.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../core/app_styles/app_styles.dart';
 import '../../../../../core/widgets/custom_icon_button.dart';
@@ -62,9 +64,16 @@ class ProductItem extends StatelessWidget {
                     onPressed: () {},
                     icon: Icons.favorite,
                   ),
-                  CustomIconButton(
-                    onPressed: () {},
-                    icon: Icons.shopping_cart_outlined,
+                  Consumer<CartProvider>(
+                    builder: (context,cartProvider,child){
+                      return  CustomIconButton(
+                        onPressed: () {
+                          cartProvider.addOrRemoveCart(productId: product.id);
+                        },
+                        icon: Icons.shopping_cart_outlined,
+                        color: cartProvider.cart.contains(product.id)? Colors.blue : Colors.grey,
+                      );
+                    },
                   ),
                 ],
               ),
