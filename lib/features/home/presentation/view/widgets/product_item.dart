@@ -1,5 +1,6 @@
 import 'package:e_commerce/core/app_sqflite/model.dart';
 import 'package:e_commerce/core/functions/navigation.dart';
+import 'package:e_commerce/features/cart/presentation/manager/cart_provider/cart_provider.dart';
 import 'package:e_commerce/features/home/presentation/view/product_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -81,9 +82,16 @@ class ProductItem extends StatelessWidget {
                     icon:Icons.favorite,color:
                   favouriteProvider.iconColor,
                   ),
-                  CustomIconButton(
-                    onPressed: () {},
-                    icon: Icons.shopping_cart_outlined,
+                  Consumer<CartProvider>(
+                    builder: (context,cartProvider,child){
+                      return  CustomIconButton(
+                        onPressed: () {
+                          cartProvider.addOrRemoveCart(productId: product.id);
+                        },
+                        icon: Icons.shopping_cart_outlined,
+                        color: cartProvider.cart.contains(product.id)? Colors.blue : Colors.grey,
+                      );
+                    },
                   ),
                 ],
               ),

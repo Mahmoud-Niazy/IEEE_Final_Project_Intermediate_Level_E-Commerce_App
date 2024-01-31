@@ -9,7 +9,6 @@ class CustomIconButton extends StatelessWidget{
     required this.onPressed,
     required this.icon,
     this.color,
-
 });
   @override
   Widget build(BuildContext context) {
@@ -18,6 +17,7 @@ class CustomIconButton extends StatelessWidget{
         icon,
       ),
       onPressed: onPressed,
+      color: color,
     );
   }
 }
