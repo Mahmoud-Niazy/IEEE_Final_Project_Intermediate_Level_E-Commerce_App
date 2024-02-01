@@ -1,4 +1,3 @@
-import 'package:e_commerce/core/app_sqflite/model.dart';
 import 'package:e_commerce/core/functions/navigation.dart';
 import 'package:e_commerce/features/cart/presentation/manager/cart_provider/cart_provider.dart';
 import 'package:e_commerce/features/home/presentation/view/product_details_view.dart';
@@ -77,10 +76,11 @@ class ProductItem extends StatelessWidget {
                           category: product.category,
                         ),
                       );
-                      favouriteProvider.toggleFavourite();
+                      // favouriteProvider.toggleFavourite();
                     },
-                    icon:Icons.favorite,color:
-                  favouriteProvider.iconColor,
+                    icon:Icons.favorite,
+                    color: Colors.grey,
+                  // favouriteProvider.iconColor,
                   ),
                   Consumer<CartProvider>(
                     builder: (context,cartProvider,child){
