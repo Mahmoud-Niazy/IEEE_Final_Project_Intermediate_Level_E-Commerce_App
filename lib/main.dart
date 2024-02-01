@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
 
         ChangeNotifierProvider<FavouriteProvider>(
           create: (context) => FavouriteProvider(),
-
+        ),
         ChangeNotifierProvider(
           create: (context) => CartProvider(),
 
