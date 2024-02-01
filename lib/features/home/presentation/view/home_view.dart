@@ -80,6 +80,7 @@ class _HomeViewState extends State<HomeView> {
                           ),
                           shape: BoxShape.circle),
                     ),
+
                   ],
                 ),
                 SizedBox(
@@ -153,6 +154,46 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ],
             ),
+
+                  );
+                },
+              ),
+              SizedBox(
+                height: screenSize.height * .03,
+              ),
+              Selector<HomeProvider, bool>(
+                builder: (BuildContext context, bool isProductsLoading,
+                    Widget? child) {
+                  if (isProductsLoading == true) {
+                    return const CustomCircularProgressIndicator();
+                  }
+                  return GridView.count(
+                    shrinkWrap: true,
+                    childAspectRatio: 1 / 1.7,
+                    crossAxisSpacing: screenSize.width * .03,
+                    mainAxisSpacing: screenSize.height * .015,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: 2,
+                    children: Provider.of<HomeProvider>(context)
+                        .allProducts
+                        .map((product) => ProductItem(
+                              product: product,
+                            ))
+                        .toList(),
+                    // itemCount: 2,
+                    // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    //   crossAxisCount: 2,
+                    // ),
+                    // itemBuilder: (context,index){
+                    //   return const ProductItem();
+                    // },
+                  );
+                },
+                selector: (BuildContext context, homeProvider) =>
+                    homeProvider.isProductsLoading,
+              ),
+            ],
+
           ),
         ),
       ),
