@@ -77,22 +77,27 @@ bool isLoading=false;
             Text('Profile',style: AppStyles.style18Black),
             SizedBox(height: 20,),
             Row(  mainAxisAlignment:MainAxisAlignment.spaceBetween ,children:
-            [  CustomProfileIconButton(icon: Icons.build_circle_outlined, iconColor: Color(0xFFe17e48), containerColor: Color(0xFFfbf0e6) ),
-              Text('Manage user information',style: AppStyles.style15Black,),
+            [  CustomProfileIconButton(icon: Icons.shopping_cart, iconColor: Color(0xFFe17e48), containerColor: Color(0xFFfbf0e6) ),
+              Text('Carts',style: AppStyles.style15Black,),
               CustomForwardButton()  ]),
             SizedBox(height: 30,),
-            Text('Settings',style: AppStyles.style18Black,),
+            Text('User Information',style: AppStyles.style18Black,),
             SizedBox(height: 20,),
-            Row( mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
-              CustomProfileIconButton(icon: Icons.notifications,  iconColor: Color(0xFF6d58f5), containerColor: Color(0xFFebe9fd)),
-              Text('Notifcations',style: AppStyles.style15Black,),
-              CustomForwardButton()  ], ),
+            Row( children: [
+              CustomProfileIconButton(icon: Icons.email_outlined,  iconColor: Color(0xFF6d58f5), containerColor: Color(0xFFebe9fd)),
+              Text(
+                ' ${profileData?['email'] }',
+                style: AppStyles.style15Black,
+              ),
+               ], ),
             SizedBox(height: 10,),
-            Row(  mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                children: [CustomProfileIconButton(icon: Icons.dark_mode_outlined, iconColor:Color(0xFF6da9e5), containerColor: Color(0xFFebf6fe)),
-                  Text('Dark Mode',style: AppStyles.style15Black,),
+            Row(
+                children: [CustomProfileIconButton(icon: Icons.phone, iconColor:Color(0xFF6da9e5), containerColor: Color(0xFFebf6fe)),
+                  Text(
+                    ' ${profileData?['phone'] }',
+                   style: AppStyles.style15Black,),
 
-                  CustomForwardButton()  ]),
+                   ]),
             SizedBox(height: 30,),
             CustomTextButton( title: 'Sign out', onPressed: () {
               Navigator.push(
