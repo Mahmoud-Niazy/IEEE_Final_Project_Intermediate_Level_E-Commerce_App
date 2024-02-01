@@ -1,6 +1,7 @@
 import 'package:e_commerce/core/functions/navigation.dart';
 import 'package:e_commerce/core/functions/show_snackbar.dart';
 import 'package:e_commerce/core/http_services/http_services.dart';
+import 'package:e_commerce/features/auth/data/models/user_model.dart';
 import 'package:e_commerce/features/auth/presentation/view/login_view.dart';
 import 'package:e_commerce/features/layout/presentation/view/layout_view.dart';
 import 'package:flutter/cupertino.dart';
@@ -50,11 +51,12 @@ class AuthProvider extends ChangeNotifier {
   }) async {
     isLoginLoading = true;
     notifyListeners();
-    var response = await HttpServices.postData(
+   var response = await HttpServices.postData(
       path: 'auth/login',
       data: userData,
     );
     if (response.statusCode == 200) {
+
       showSnackBar(
         context: context,
         text: 'Successfully',
