@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class LayoutProvider extends ChangeNotifier{
   List<Widget> screens = [
-     HomeView(),
+     const HomeView(),
     const FavouritesView(),
     const CartView(),
     const ProfileView(),

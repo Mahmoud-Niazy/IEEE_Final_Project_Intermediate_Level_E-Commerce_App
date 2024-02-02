@@ -2,11 +2,11 @@ import '../../../../core/app_sqflite/sql.dart';
 
 class ProductModel {
   late final int id;
-  late String title;
+  final String title;
   final String description;
   final num price;
   final String category;
-  late String image;
+  final  String image;
   final num? rate;
 
   ProductModel({
@@ -20,6 +20,7 @@ class ProductModel {
 
   });
 
+  // is User for getting Data From API
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
       title: json['title'],
@@ -32,6 +33,7 @@ class ProductModel {
     );
   }
 
+  // is Used For getting Data From SQL
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
       id: map[columnId],
@@ -44,9 +46,9 @@ class ProductModel {
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {};
-    if (id != null) map[columnId] = id;
+    map[columnId] = id;
     map[columnTitle] = title;
     map[columnImage] = image;
     map[columnPrice] = price;
