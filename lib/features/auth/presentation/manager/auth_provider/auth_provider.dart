@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:e_commerce/core/cache_helper/cache_helper.dart';
 import 'package:e_commerce/core/functions/navigation.dart';
 import 'package:e_commerce/core/functions/show_snackbar.dart';
 import 'package:e_commerce/core/http_services/http_services.dart';
@@ -56,7 +59,7 @@ class AuthProvider extends ChangeNotifier {
       data: userData,
     );
     if (response.statusCode == 200) {
-
+      CacheHelper.saveData(key: 'token', value: json.decode(response.body)['token']);
       showSnackBar(
         context: context,
         text: 'Successfully',

@@ -1,5 +1,8 @@
 import 'package:e_commerce/core/app_assets/app_assets.dart';
+import 'package:e_commerce/core/cache_helper/cache_helper.dart';
 import 'package:e_commerce/core/functions/navigation.dart';
+import 'package:e_commerce/features/auth/presentation/view/login_view.dart';
+import 'package:e_commerce/features/layout/presentation/view/layout_view.dart';
 import 'package:e_commerce/features/on_boarding/presentation/view/on_boarding_view.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +22,7 @@ class _SplashViewState extends State<SplashView> {
       () {
         navigateAndRemoveUntil(
          context: context,
-          screen: const OnBoardingView(),
+          screen: CacheHelper.getData(key: 'token') != null ? const LayoutView() : const OnBoardingView(),
         );
       },
     );

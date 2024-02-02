@@ -3,27 +3,36 @@ import 'package:flutter/foundation.dart';
 import '../../../../home/data/models/product_model.dart';
 
 class CartProvider extends ChangeNotifier{
-  List<int> cart = [];
+  List<int> cartIds = [];
   List<ProductModel> cartProducts = [];
+  bool isCartProductsLoading = true;
+  num totalPrice = 0;
 
   addOrRemoveCart({
     required int productId,
 }){
-    if(cart.contains(productId)){
-      cart.remove(productId);
+    if(cartIds.contains(productId)){
+      cartIds.remove(productId);
     }
     else{
-      cart.add(productId);
+      cartIds.add(productId);
     }
+    getAllCart();
     notifyListeners();
   }
   
   Future getAllCart()async{
-    for(var productId in cart){
+    isCartProductsLoading = true;
+    cartProducts = [];
+    totalPrice = 0;
+    for(var productId in cartIds){
       var data = await HttpServices.getData(path: 'products/$productId');
       ProductModel product = ProductModel.fromJson(data);
-      print(product.price);
       cartProducts.add(product);
+      totalPrice = totalPrice + product.price;
     }
+    isCartProductsLoading = false ;
+    notifyListeners();
+    return cartProducts;
   }
 }

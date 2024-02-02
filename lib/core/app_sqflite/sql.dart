@@ -5,18 +5,18 @@ import 'package:path/path.dart';
 import '../../features/home/data/models/product_model.dart';
 
 
-late String columnId = 'id';
-final String columnTitle = 'title';
-final String columnImage = 'image';
-final String productsTable = 'products_table';
-final String columnDescription = 'description';
-final String columnPrice = 'price';
-final String columnCategory = 'category';
-final String columnRate = 'rate';
+const String columnId = 'id';
+const String columnTitle = 'title';
+const String columnImage = 'image';
+const String productsTable = 'products_table';
+const String columnDescription = 'description';
+const String columnPrice = 'price';
+const String columnCategory = 'category';
+const String columnRate = 'rate';
 
 
 class Sql {
-  late Database db;
+  static late Database db;
 
   static final Sql instance = Sql._internal();
 
@@ -47,15 +47,14 @@ class Sql {
   }
 
 
-  Future<ProductModel> insertProducts(ProductModel products) async {
-    products.id = await db.insert( productsTable, products.toMap());
-    return products;
+  static Future insertProducts(ProductModel product) async {
+   await db.insert( productsTable, product.toJson());
   }
 
   Future<int> updateProducts(ProductModel products) async {
     return await db.update(
       productsTable,
-      products.toMap(),
+      products.toJson(),
       where: '$columnId = ?',
       whereArgs: [products.id],
     );
@@ -69,9 +68,10 @@ class Sql {
     );
   }
 
-  Future<List<ProductModel>> getAllProducts() async {
+
+  static Future<List<ProductModel>> getAllProducts() async {
     List<Map<String, dynamic>> produtsMaps = await db.query(productsTable);
-    if (produtsMaps.length == 0) {
+    if (produtsMaps.isEmpty) {
       return [];
     } else {
       List<ProductModel> products = [];
@@ -81,6 +81,7 @@ class Sql {
       return products;
     }
   }
+
 
   Future close() async => db.close();
 
