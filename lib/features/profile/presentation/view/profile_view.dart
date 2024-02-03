@@ -1,4 +1,5 @@
 import 'package:e_commerce/core/cache_helper/cache_helper.dart';
+import 'package:e_commerce/core/functions/navigation.dart';
 import 'package:e_commerce/core/widgets/custom_button.dart';
 import 'package:e_commerce/core/widgets/custom_circular_progress_indicator.dart';
 import 'package:e_commerce/features/profile/presentation/manager/profile_provider/profile_provider.dart';
@@ -19,8 +20,8 @@ class ProfileView extends StatelessWidget {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: Consumer<ProfileProvider>(
-        builder: (context,profileProvider,child){
-          if(profileProvider.isUserDataLoading == false){
+        builder: (context, profileProvider, child) {
+          if (profileProvider.isUserDataLoading == false) {
             return Center(
               child: SingleChildScrollView(
                 child: Padding(
@@ -28,7 +29,7 @@ class ProfileView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                       Row(
+                      Row(
                         children: [
                           const CircleAvatar(
                             radius: 50,
@@ -51,8 +52,13 @@ class ProfileView extends StatelessWidget {
                       //   ' ${profileData?['name']['lastname'] }',
                       //   style: AppStyles.style18Grey,
                       // ),
-                      SizedBox(height: screenSize.height * .05,),
-                      const Text('Profile', style: AppStyles.style18Black,),
+                      SizedBox(
+                        height: screenSize.height * .05,
+                      ),
+                      const Text(
+                        'Profile',
+                        style: AppStyles.style18Black,
+                      ),
                       const SizedBox(
                         height: 20,
                       ),
@@ -86,7 +92,7 @@ class ProfileView extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                       Row(
+                      Row(
                         children: [
                           const CustomProfileIconButton(
                               icon: Icons.email_outlined,
@@ -104,7 +110,7 @@ class ProfileView extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                       Row(children: [
+                      Row(children: [
                         const CustomProfileIconButton(
                             icon: Icons.phone,
                             iconColor: Color(0xFF6da9e5),
@@ -124,10 +130,10 @@ class ProfileView extends StatelessWidget {
                           title: 'Sign out',
                           onPressed: () {
                             CacheHelper.removeData(key: 'token');
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const LoginView()));
+                            navigateAndRemoveUntil(
+                              context: context,
+                              screen: const LoginView(),
+                            );
                           })
                     ],
                   ),
