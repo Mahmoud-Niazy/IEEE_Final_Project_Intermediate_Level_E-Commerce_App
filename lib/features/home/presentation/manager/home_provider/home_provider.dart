@@ -18,15 +18,31 @@ class HomeProvider extends ChangeNotifier{
   }
 
   bool isProductsLoading = false;
-  List<ProductModel> allProducts = [] ;
+  List<ProductModel> products = [] ;
   getAllProducts()async{
+    products = [];
     isProductsLoading = true ;
+    notifyListeners();
     var data = await HttpServices.getData(path: 'products');
     for(var element in data){
-      allProducts.add(ProductModel.fromJson(element));
+      products.add(ProductModel.fromJson(element));
     }
     isProductsLoading = false;
     notifyListeners();
   }
 
+  getProductsSpecificInCategory({
+    required String category,
+})async{
+    products = [];
+    isProductsLoading = true ;
+    notifyListeners();
+    var data = await HttpServices.getData(path: 'products/category/$category');
+    for(var element in data){
+      products.add(ProductModel.fromJson(element));
+    }
+    isProductsLoading = false;
+    notifyListeners();
+
+  }
 }

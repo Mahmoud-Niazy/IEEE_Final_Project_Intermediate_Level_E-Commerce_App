@@ -15,117 +15,140 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    return ChangeNotifierProvider(
-        create: (context) => HomeProvider()
-          ..getAllCategories()
-          ..getAllProducts(),
-        child: Scaffold(
-            body: Padding(
-                padding: const EdgeInsets.all(20),
-                child: SingleChildScrollView(
-                  child: Column(
+    return Scaffold(
+        body: Padding(
+            padding: const EdgeInsets.all(20),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      Column(
                         children: [
-                          Column(
-                            children: [
-                              const Text(
-                                'Welcome',
-                                style: AppStyles.style20,
-                              ),
-                              Consumer<ProfileProvider>(
-                                builder: (context,profileProvider,child){
-                                  if(profileProvider.isUserDataLoading == false){
-                                   return Text(
-                                      ' ${profileProvider.user.userName}',
-                                      style: AppStyles.style18Black,
-                                    );
-                                  }
-                                  return const CustomCircularProgressIndicator();
-                                },
-                              ),
-                            ],
+                          const Text(
+                            'Welcome',
+                            style: AppStyles.style20,
                           ),
-                          Container(
-                            height: screenSize.height * .1,
-                            width: screenSize.width * .15,
-                            decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                    AppAssets.userImage,
-                                  ),
-                                ),
-                                shape: BoxShape.circle),
+                          Consumer<ProfileProvider>(
+                            builder: (context, profileProvider, child) {
+                              if (profileProvider.isUserDataLoading ==
+                                  false) {
+                                return Text(
+                                  ' ${profileProvider.user.userName}',
+                                  style: AppStyles.style18Black,
+                                );
+                              }
+                              return const CustomCircularProgressIndicator();
+                            },
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: screenSize.height * .03,
-                      ),
-                      const SearchWidget(),
-                      SizedBox(
-                        height: screenSize.height * .03,
-                      ),
-                      Selector<HomeProvider, bool>(
-                        selector: (context, homeProvider) =>
-                            homeProvider.isCategoriesLoading,
-                        builder: (BuildContext context,
-                            bool isCategoriesLoading, Widget? child) {
-                          if (isCategoriesLoading == true) {
-                            return const CustomCircularProgressIndicator();
-                          }
-                          return SizedBox(
-                            height: 40,
-                            child: ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                return CategoryItem(
-                                    categoryTitle:
-                                        Provider.of<HomeProvider>(context)
-                                            .categories[index]);
-                              },
-                              separatorBuilder: (context, index) {
-                                return const SizedBox(
-                                  width: 10,
-                                );
-                              },
-                              itemCount: Provider.of<HomeProvider>(context)
-                                  .categories
-                                  .length,
+                      Container(
+                        height: screenSize.height * .1,
+                        width: screenSize.width * .15,
+                        decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                AppAssets.userImage,
+                              ),
                             ),
-                          );
-                        },
-                      ),
-                      SizedBox(
-                        height: screenSize.height * .03,
-                      ),
-                      Selector<HomeProvider, bool>(
-                        builder: (BuildContext context, bool isProductsLoading,
-                            Widget? child) {
-                          if (isProductsLoading == true) {
-                            return const CustomCircularProgressIndicator();
-                          }
-                          return GridView.count(
-                            shrinkWrap: true,
-                            childAspectRatio: 1 / 1.6,
-                            crossAxisSpacing: screenSize.width * .03,
-                            mainAxisSpacing: screenSize.height * .015,
-                            physics: const NeverScrollableScrollPhysics(),
-                            crossAxisCount: 2,
-                            children: Provider.of<HomeProvider>(context)
-                                .allProducts
-                                .map((product) => ProductItem(
-                                      product: product,
-                                    ))
-                                .toList(),
-                          );
-                        },
-                        selector: (BuildContext context, homeProvider) =>
-                            homeProvider.isProductsLoading,
+                            shape: BoxShape.circle),
                       ),
                     ],
                   ),
-                ))));
+                  SizedBox(
+                    height: screenSize.height * .03,
+                  ),
+                  const SearchWidget(),
+                  SizedBox(
+                    height: screenSize.height * .03,
+                  ),
+                  Consumer<HomeProvider>(
+                    builder: (context,homeProvider,child){
+                      if(homeProvider.isProductsLoading == true){
+                        return const CustomCircularProgressIndicator();
+                      }
+                      return SizedBox(
+                        height: 40,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                               SizedBox(
+                                  height : 40 ,
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      homeProvider.getAllProducts();
+                                    },
+                                    child: CategoryItem(
+                                      categoryTitle: 'All Products',
+                                    ),
+                                  )),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              ListView.separated(
+                                shrinkWrap: true,
+                                physics:
+                                const NeverScrollableScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: (){
+                                      homeProvider.getProductsSpecificInCategory(category: homeProvider.categories[index]);
+                                    },
+                                    child: CategoryItem(
+                                        categoryTitle:
+                                        homeProvider
+                                            .categories[index]),
+                                  );
+                                },
+                                separatorBuilder: (context, index) {
+                                  return const SizedBox(
+                                    width: 10,
+                                  );
+                                },
+                                itemCount:
+                                homeProvider
+                                    .categories
+                                    .length,
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  SizedBox(
+                    height: screenSize.height * .03,
+                  ),
+                  Selector<HomeProvider, bool>(
+                    builder: (BuildContext context, bool isProductsLoading,
+                        Widget? child) {
+                      if (isProductsLoading == true) {
+                        return const CustomCircularProgressIndicator();
+                      }
+                      return GridView.count(
+                        shrinkWrap: true,
+                        childAspectRatio: 1 / 1.6,
+                        crossAxisSpacing: screenSize.width * .03,
+                        mainAxisSpacing: screenSize.height * .015,
+                        physics: const NeverScrollableScrollPhysics(),
+                        crossAxisCount: 2,
+                        children: Provider.of<HomeProvider>(context)
+                            .products
+                            .map((product) => ProductItem(
+                                  product: product,
+                                ))
+                            .toList(),
+                      );
+                    },
+                    selector: (BuildContext context, homeProvider) =>
+                        homeProvider.isProductsLoading,
+                  ),
+                ],
+              ),
+            )));
   }
 }
