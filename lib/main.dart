@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'features/auth/presentation/manager/auth_provider/auth_provider.dart';
 import 'features/favourites/presentation/manager/favourites_provider/favourite_provider.dart';
+import 'features/home/presentation/manager/home_provider/home_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,6 +24,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (context) => HomeProvider()
+            ..getAllCategories()
+            ..getAllProducts(),
+        ),
         ChangeNotifierProvider(
           create: (context) => AuthProvider(),
         ),
