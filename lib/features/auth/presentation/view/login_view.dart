@@ -10,18 +10,13 @@ import '../../../../core/app_assets/app_assets.dart';
 import '../../../../core/app_styles/app_styles.dart';
 import '../manager/auth_provider/auth_provider.dart';
 
-class LoginView extends StatefulWidget {
+class LoginView extends StatelessWidget {
   static TextEditingController userNameController = TextEditingController();
   static TextEditingController passwordController = TextEditingController();
-  static GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  static final formKey = GlobalKey<FormState>();
 
   const LoginView({super.key});
 
-  @override
-  State<LoginView> createState() => _LoginViewState();
-}
-
-class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +29,7 @@ class _LoginViewState extends State<LoginView> {
             20,
           ),
           child: Form(
-            key: LoginView.formKey,
+            key: formKey,
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Center(
@@ -69,7 +64,7 @@ class _LoginViewState extends State<LoginView> {
               ),
               CustomTextFormField(
                 title: 'Enter your user name',
-                controller: LoginView.userNameController,
+                controller: userNameController,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Enter your user name';
@@ -89,7 +84,7 @@ class _LoginViewState extends State<LoginView> {
               ),
               CustomTextFormField(
                 title: 'Enter password',
-                controller: LoginView.passwordController,
+                controller: passwordController,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Enter your password';
@@ -122,13 +117,17 @@ class _LoginViewState extends State<LoginView> {
                   }
                   return CustomButton(
                     onPressed: () {
-                      authProvider.userLogin(
+                      if(formKey.currentState!.validate()) {
+                        authProvider.userLogin(
                         context: context,
                         userData: {
-                          'username': LoginView.userNameController.text.trim(),
-                          'password': LoginView.passwordController.text.trim(),
+                          'username': userNameController.text.trim(),
+                          'password': passwordController.text.trim(),
                         },
                       );
+                        userNameController.text = '';
+                        passwordController.text = '';
+                      }
                     },
                     title: 'Login',
                   );

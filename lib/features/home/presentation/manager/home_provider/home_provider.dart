@@ -6,6 +6,20 @@ import '../../../data/models/product_model.dart';
 class HomeProvider extends ChangeNotifier{
   bool isCategoriesLoading = false;
   List<String> categories = [];
+  int currentIndex = 0;
+  bool isAllProductsShown = true ;
+
+  colorAllProductCategory(){
+    isAllProductsShown = true;
+    notifyListeners();
+  }
+
+  changeIndex(int index){
+    isAllProductsShown = false;
+    currentIndex = index;
+    notifyListeners();
+  }
+
 
   getAllCategories()async{
     isCategoriesLoading = true;
