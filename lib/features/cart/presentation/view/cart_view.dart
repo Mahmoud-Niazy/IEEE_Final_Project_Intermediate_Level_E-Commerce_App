@@ -62,7 +62,7 @@ class CartView extends StatelessWidget {
                   Consumer<CartProvider>(
                     builder: (context, cartProvider, child) {
                       return Text(
-                        '${cartProvider.totalPrice} \$',
+                        '${cartProvider.totalPrice.floorToDouble()} \$',
                         style: AppStyles.style18Grey,
                       );
                     },

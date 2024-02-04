@@ -79,10 +79,12 @@ class HomeView extends StatelessWidget {
                                   height : 40 ,
                                   child: GestureDetector(
                                     onTap: (){
+                                      homeProvider.colorAllProductCategory();
                                       homeProvider.getAllProducts();
                                     },
                                     child: CategoryItem(
                                       categoryTitle: 'All Products',
+                                      isSelected: homeProvider.isAllProductsShown,
                                     ),
                                   )),
                               const SizedBox(
@@ -96,9 +98,11 @@ class HomeView extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   return GestureDetector(
                                     onTap: (){
+                                      homeProvider.changeIndex(index);
                                       homeProvider.getProductsSpecificInCategory(category: homeProvider.categories[index]);
                                     },
                                     child: CategoryItem(
+                                      isSelected: homeProvider.isAllProductsShown ? false : homeProvider.currentIndex == index ? true : false ,
                                         categoryTitle:
                                         homeProvider
                                             .categories[index]),
